@@ -13,7 +13,7 @@ A free, open academic resource for students preparing for Data Science viva exam
 
 ## What's Inside
 
-- **70 viva-style questions** written as concise, spoken-register answers
+- **50+ viva-style questions** written as concise, spoken-register answers
 - **7 sections** — 6 course modules + lab experiments
 - **Textbook-grounded** — every answer cites its source
 - **Tap to reveal** — answers expand on click, no page reloads
