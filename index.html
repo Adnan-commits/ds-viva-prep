@@ -7,340 +7,81 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --sky: #0EA5E9;
-    --sky-light: #E0F2FE;
-    --sky-dark: #0369A1;
-    --sky-mid: #38BDF8;
-    --sky-border: #7DD3FA;
-    --bg: #F8FAFC;
-    --surface: #FFFFFF;
-    --border: #E2E8F0;
-    --border-soft: #F1F5F9;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-muted: #94A3B8;
-    --green-bg: #D1FAE5;
-    --green-text: #065F46;
-    --green-border: #34D399;
-    --radius-sm: 8px;
+    --sky: #0EA5E9; --sky-light: #E0F2FE; --sky-dark: #0369A1; --sky-border: #7DD3FA;
+    --bg: #F8FAFC; --surface: #FFFFFF; --border: #E2E8F0; --border-soft: #F1F5F9;
+    --text-primary: #0F172A; --text-secondary: #475569; --text-muted: #94A3B8;
+    --eg-bg: #F0FDF4; --eg-border: #86EFAC; --eg-text: #14532D;
     --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
   }
-
   html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; line-height: 1.6; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
+  .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; position: sticky; top: 0; z-index: 100; }
+  .topbar-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; height: 64px; }
+  .site-title { font-size: 17px; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+  .site-title span { color: var(--sky); }
+  .prog-wrap { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .prog-bar-outer { height: 6px; background: var(--border-soft); border-radius: 99px; overflow: hidden; }
+  .prog-bar-inner { height: 100%; background: var(--sky); border-radius: 99px; transition: width 0.35s; width: 0%; }
+  .prog-text { font-size: 12px; color: var(--text-muted); }
+  .total-badge { font-size: 12px; font-weight: 500; color: var(--sky-dark); background: var(--sky-light); padding: 4px 12px; border-radius: 99px; white-space: nowrap; }
 
-  /* ── TOP BAR ── */
-  .topbar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .topbar-inner {
-    max-width: 860px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    height: 64px;
-  }
-  .site-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--text-primary);
-    white-space: nowrap;
-  }
-  .site-title span {
-    color: var(--sky);
-  }
-  .prog-wrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .prog-bar-outer {
-    height: 6px;
-    background: var(--border-soft);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .prog-bar-inner {
-    height: 100%;
-    background: var(--sky);
-    border-radius: 99px;
-    transition: width 0.35s ease;
-    width: 0%;
-  }
-  .prog-text {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .total-badge {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--sky-dark);
-    background: var(--sky-light);
-    padding: 4px 12px;
-    border-radius: 99px;
-    white-space: nowrap;
-  }
+  .hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; }
+  .hero-inner { max-width: 860px; margin: 0 auto; }
+  .hero h1 { font-size: 28px; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+  .hero p { font-size: 16px; color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 600px; line-height: 1.6; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill { font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 99px; border: 1px solid var(--border); background: var(--bg); color: var(--text-secondary); }
 
-  /* ── HERO ── */
-  .hero {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 2.5rem 2rem 2rem;
-  }
-  .hero-inner {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .hero h1 {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
-  .hero p {
-    font-size: 16px;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    line-height: 1.6;
-  }
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .hero-pill {
-    font-size: 13px;
-    font-weight: 500;
-    padding: 5px 14px;
-    border-radius: 99px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text-secondary);
-  }
-
-  /* ── MODULE NAV ── */
-  .mod-nav-wrap {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    position: sticky;
-    top: 64px;
-    z-index: 90;
-  }
-  .mod-nav-inner {
-    max-width: 860px;
-    margin: 0 auto;
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    padding: 10px 0;
-    scrollbar-width: none;
-  }
+  .mod-nav-wrap { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; position: sticky; top: 64px; z-index: 90; }
+  .mod-nav-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 4px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
   .mod-nav-inner::-webkit-scrollbar { display: none; }
-  .mnav {
-    font-size: 13px;
-    font-weight: 500;
-    padding: 6px 16px;
-    border-radius: 99px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text-secondary);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    font-family: 'Inter', sans-serif;
-  }
+  .mnav { font-size: 13px; font-weight: 500; padding: 6px 16px; border-radius: 99px; border: 1.5px solid var(--border); background: transparent; color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.15s; font-family: 'Inter', sans-serif; }
   .mnav:hover { border-color: var(--sky-border); color: var(--sky-dark); background: var(--sky-light); }
   .mnav.active { background: var(--sky-light); border-color: var(--sky); color: var(--sky-dark); }
 
-  /* ── MAIN CONTENT ── */
-  .main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2rem 2rem 4rem;
-  }
-
-  /* ── MODULE SECTION ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 4rem; }
   .module-section { margin-bottom: 2.5rem; }
-  .mod-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1.5px solid var(--border);
-  }
-  .mod-badge {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 99px;
-    background: var(--sky-light);
-    color: var(--sky-dark);
-    border: 1.5px solid var(--sky-border);
-    white-space: nowrap;
-  }
-  .mod-title-text {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  .mod-hours {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
+  .mod-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1.5px solid var(--border); }
+  .mod-badge { font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 99px; background: var(--sky-light); color: var(--sky-dark); border: 1.5px solid var(--sky-border); white-space: nowrap; }
+  .mod-title-text { font-size: 17px; font-weight: 600; }
+  .mod-hours { margin-left: auto; font-size: 12px; color: var(--text-muted); white-space: nowrap; }
 
-  /* ── QUESTION CARD ── */
-  .q-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    margin-bottom: 10px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
+  .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
   .q-card:hover { border-color: var(--sky-border); }
   .q-card.open { border-color: var(--sky); }
-
-  .q-trigger {
-    width: 100%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 18px 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    text-align: left;
-    font-family: 'Inter', sans-serif;
-  }
+  .q-trigger { width: 100%; background: transparent; border: none; cursor: pointer; padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px; text-align: left; font-family: 'Inter', sans-serif; }
   .q-trigger:hover { background: #F8FAFC; }
-
-  .q-num {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--sky-dark);
-    background: var(--sky-light);
-    border-radius: 99px;
-    padding: 3px 10px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 2px;
-    line-height: 1.4;
-  }
-
-  .q-text {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.55;
-    flex: 1;
-  }
-
-  .q-chevron {
-    flex-shrink: 0;
-    color: var(--text-muted);
-    margin-top: 4px;
-    transition: transform 0.2s;
-  }
+  .q-num { font-size: 12px; font-weight: 600; color: var(--sky-dark); background: var(--sky-light); border-radius: 99px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .q-text { font-size: 16px; font-weight: 500; line-height: 1.55; flex: 1; }
+  .q-chevron { flex-shrink: 0; color: var(--text-muted); margin-top: 4px; transition: transform 0.2s; }
   .q-card.open .q-chevron { transform: rotate(180deg); }
 
-  /* ── ANSWER PANEL ── */
-  .a-panel {
-    display: none;
-    padding: 0 20px 18px 20px;
-    border-top: 1px solid var(--border-soft);
-  }
+  .a-panel { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border-soft); }
   .q-card.open .a-panel { display: block; }
+  .a-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sky-dark); margin: 14px 0 8px; }
+  .a-body { font-size: 15px; line-height: 1.75; }
+  .a-body b { font-weight: 600; }
 
-  .a-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sky-dark);
-    margin: 14px 0 8px;
-  }
+  .eg-box { margin-top: 12px; background: var(--eg-bg); border: 1px solid var(--eg-border); border-radius: 10px; padding: 12px 14px; }
+  .eg-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #166534; margin-bottom: 5px; }
+  .eg-text { font-size: 14px; color: var(--eg-text); line-height: 1.65; }
+  .eg-text b { font-weight: 600; }
 
-  .a-body {
-    font-size: 15px;
-    color: var(--text-primary);
-    line-height: 1.75;
-  }
-  .a-body b {
-    font-weight: 600;
-    color: var(--text-primary);
-  }
+  .a-source { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
 
-  .a-source {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .a-source::before {
-    content: '';
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2394A3B8'%3E%3Cpath d='M4 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5.414A1 1 0 0 0 12.707 4.707L9.293 1.293A1 1 0 0 0 8.586 1H4zm4.5 1.5v3h3l-3-3z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    flex-shrink: 0;
-  }
+  .footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--surface); }
 
-  /* ── FOOTER ── */
-  .footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 13px;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border);
-    background: var(--surface);
-  }
-  .footer a { color: var(--sky-dark); text-decoration: none; }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
-    .topbar { padding: 0 1rem; }
-    .hero { padding: 1.5rem 1rem 1.25rem; }
-    .hero h1 { font-size: 22px; }
-    .mod-nav-wrap { padding: 0 1rem; }
-    .main { padding: 1.25rem 1rem 3rem; }
-    .q-text { font-size: 15px; }
-    .a-body { font-size: 14px; }
-    .site-title { font-size: 15px; }
-    .total-badge { display: none; }
+    .topbar { padding: 0 1rem; } .hero { padding: 1.5rem 1rem 1.25rem; } .hero h1 { font-size: 22px; }
+    .mod-nav-wrap { padding: 0 1rem; } .main { padding: 1.25rem 1rem 3rem; }
+    .q-text { font-size: 15px; } .a-body { font-size: 14px; } .eg-text { font-size: 13px; } .total-badge { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <header class="topbar">
   <div class="topbar-inner">
     <div class="site-title">DS <span>Viva</span> Prep</div>
@@ -352,11 +93,10 @@
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <h1>Data Science — Viva Preparation</h1>
-    <p>70 questions across 6 modules and lab experiments, grounded in your course textbooks. Tap any question to reveal a concise, viva-ready answer.</p>
+    <p>70 questions across 6 modules and lab experiments, grounded in your course textbooks. Each answer includes a real-world example to make concepts stick.</p>
     <div class="hero-meta">
       <span class="hero-pill">Kotu &amp; Deshpande</span>
       <span class="hero-pill">Skiena</span>
@@ -367,111 +107,95 @@
   </div>
 </section>
 
-<!-- MODULE NAV -->
-<nav class="mod-nav-wrap">
-  <div class="mod-nav-inner" id="mod-nav"></div>
-</nav>
-
-<!-- MAIN -->
+<nav class="mod-nav-wrap"><div class="mod-nav-inner" id="mod-nav"></div></nav>
 <main class="main" id="main-content"></main>
-
-<!-- FOOTER -->
-<footer class="footer">
-  Free academic resource · Data Science Viva Prep · Based on prescribed textbooks
-</footer>
+<footer class="footer">Free academic resource · Data Science Viva Prep · Based on prescribed textbooks</footer>
 
 <script>
 const MODULES = [
-  {id:"M1", label:"Module 1", title:"Introduction to data science", hours:"2 hrs"},
-  {id:"M2", label:"Module 2", title:"Data exploration", hours:"8 hrs"},
-  {id:"M3", label:"Module 3", title:"Methodology & visualization", hours:"6 hrs"},
-  {id:"M4", label:"Module 4", title:"Anomaly detection", hours:"6 hrs"},
-  {id:"M5", label:"Module 5", title:"Time series forecasting", hours:"4 hrs"},
-  {id:"M6", label:"Module 6", title:"Applications of data science", hours:"4 hrs"},
-  {id:"LAB", label:"Lab", title:"Lab experiments", hours:""}
+  {id:"M1",label:"Module 1",title:"Introduction to data science",hours:"2 hrs"},
+  {id:"M2",label:"Module 2",title:"Data exploration",hours:"8 hrs"},
+  {id:"M3",label:"Module 3",title:"Methodology & visualization",hours:"6 hrs"},
+  {id:"M4",label:"Module 4",title:"Anomaly detection",hours:"6 hrs"},
+  {id:"M5",label:"Module 5",title:"Time series forecasting",hours:"4 hrs"},
+  {id:"M6",label:"Module 6",title:"Applications of data science",hours:"4 hrs"},
+  {id:"LAB",label:"Lab",title:"Lab experiments",hours:""}
 ];
 
 const QS = [
-  // MODULE 1
-  {m:"M1",q:"What is data science?",a:"Data science is an interdisciplinary field that combines <b>statistics, programming, and domain knowledge</b> to extract meaningful insights from structured and unstructured data. It spans the full pipeline from data collection and cleaning through modeling to communicating results to stakeholders.",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What is the data science process?",a:"The data science process is iterative and follows these stages: <b>collect</b> data, <b>explore and prepare</b> it, <b>build and evaluate models</b>, <b>interpret results</b>, and <b>communicate findings</b>. Insights at any stage can send you back to an earlier step.",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What distinguishes data science from data analytics?",a:"<b>Data analytics</b> is primarily descriptive — it summarises and explains what has already happened. <b>Data science</b> goes further by building predictive and prescriptive models to forecast future outcomes and discover hidden patterns not visible in historical summaries alone.",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What are the three Vs of big data?",a:"The three Vs are <b>Volume</b> (the scale of data generated), <b>Variety</b> (structured, semi-structured, and unstructured formats), and <b>Velocity</b> (data generated continuously and in real time). Together they make traditional analytical tools insufficient and motivate data science techniques.",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What is data preparation and why does it matter?",a:"Data preparation covers all steps to clean, transform, and structure raw data before modeling — handling missing values, encoding categories, scaling features, and removing duplicates. It typically consumes <b>up to 80% of project time</b> because model quality is directly limited by data quality.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M1",q:"Name four common data science task types with examples.",a:"<b>Classification</b> — predicting whether an email is spam or not. <b>Regression</b> — predicting house prices. <b>Clustering</b> — grouping customers by behaviour without predefined labels. <b>Anomaly detection</b> — identifying fraudulent transactions. Each maps to a different family of algorithms.",src:"Skiena, Ch. 1"},
-  {m:"M1",q:"What role does domain knowledge play in data science?",a:"Domain knowledge guides which features are relevant, what data is worth collecting, and whether model outputs are practically meaningful. A statistically significant result without domain context can lead to incorrect or harmful business decisions. Domain expertise is what separates a useful model from a technically correct but useless one.",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What is the difference between supervised and unsupervised learning?",a:"In <b>supervised learning</b>, the training data includes labeled outputs and the model learns a mapping from inputs to outputs (e.g., classification, regression). In <b>unsupervised learning</b>, there are no labels and the model discovers structure in the data itself (e.g., clustering, dimensionality reduction).",src:"Kotu & Deshpande, Ch. 1"},
-  {m:"M1",q:"What is the purpose of model evaluation in data science?",a:"Model evaluation measures how well a model <b>generalises to unseen data</b>. Without evaluation on held-out data, a model may appear accurate but simply memorise the training set (overfitting). Evaluation guides model selection, hyperparameter tuning, and communicating reliability to stakeholders.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M1",q:"What is the role of data visualization in the data science process?",a:"Data visualization helps at multiple stages: during <b>exploration</b> to understand distributions and relationships, during <b>modeling</b> to check assumptions, and during <b>communication</b> to make findings accessible to non-technical audiences. A well-chosen chart can reveal patterns that summary statistics alone would miss.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M1",q:"What is data science?",a:"Data science is an interdisciplinary field combining <b>statistics, programming, and domain knowledge</b> to extract meaningful insights from structured and unstructured data. It spans the full pipeline from collection and cleaning through modeling to communicating results.",eg:"A hospital collects patient records — data science analyses those records, builds a model predicting readmission risk, and presents actionable findings to doctors in a usable format.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What is the data science process?",a:"The process is iterative: <b>collect</b> data, <b>explore and prepare</b> it, <b>build and evaluate models</b>, <b>interpret results</b>, and <b>communicate findings</b>. Insights at any stage can send you back to an earlier step.",eg:"An e-commerce company collects purchase logs, cleans missing entries, builds a sales forecasting model, discovers it underperforms on weekends, and loops back to add day-of-week as a new feature.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What distinguishes data science from data analytics?",a:"<b>Data analytics</b> describes and explains what has already happened. <b>Data science</b> goes further — building predictive and prescriptive models to forecast future outcomes and discover hidden patterns.",eg:"Analytics tells you sales dropped 20% last quarter. Data science builds a model predicting which customers are likely to churn next month so the business can intervene proactively.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What are the three Vs of big data?",a:"<b>Volume</b> (scale of data), <b>Variety</b> (structured, semi-structured, and unstructured formats), and <b>Velocity</b> (speed of generation). Together they make traditional tools insufficient and motivate data science techniques.",eg:"Twitter generates millions of tweets per minute (Velocity), in text, image, and video formats (Variety), accumulating petabytes over time (Volume) — all three Vs simultaneously.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What is data preparation and why does it matter?",a:"Data preparation covers cleaning, transforming, and structuring raw data — handling missing values, encoding categories, scaling features, removing duplicates. It consumes <b>up to 80% of project time</b> because model quality is directly limited by data quality.",eg:"A customer transactions dataset may have duplicate rows, missing income values, and 'Male'/'male'/'M' as inconsistent entries — all must be resolved before any model can train reliably.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M1",q:"Name four common data science task types with examples.",a:"<b>Classification</b> — predicting a category. <b>Regression</b> — predicting a continuous value. <b>Clustering</b> — grouping without labels. <b>Anomaly detection</b> — identifying unusual observations.",eg:"Classification: is this email spam? Regression: what will this house sell for? Clustering: which customers share buying patterns? Anomaly detection: is this credit card transaction fraudulent?",src:"Skiena, Ch. 1"},
+  {m:"M1",q:"What role does domain knowledge play in data science?",a:"Domain knowledge guides which features are relevant, what data to collect, and whether results are practically meaningful. A statistically significant result without domain context can lead to harmful decisions.",eg:"A model predicting patient recovery flags blood pressure as the top feature — but a clinician knows blood pressure is measured after treatment, making it data leakage. Pure statistics would not catch this.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What is the difference between supervised and unsupervised learning?",a:"<b>Supervised learning</b> uses labeled training data to learn a mapping from inputs to outputs. <b>Unsupervised learning</b> has no labels and discovers structure in data on its own.",eg:"Supervised: training a spam filter on emails already labeled 'spam' or 'not spam'. Unsupervised: grouping news articles by topic with no predefined categories — the model finds the clusters itself.",src:"Kotu & Deshpande, Ch. 1"},
+  {m:"M1",q:"What is the purpose of model evaluation in data science?",a:"Model evaluation measures how well a model <b>generalises to unseen data</b>. Without held-out test evaluation, a model may appear accurate but simply memorise the training set (overfitting).",eg:"A disease detection model achieves 99% accuracy on training data but only 60% on new patients. Evaluation on a separate test set would have revealed this overfitting before deployment.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M1",q:"What is the role of data visualization in the data science process?",a:"Visualization helps during <b>exploration</b> (understanding distributions), <b>modeling</b> (checking assumptions), and <b>communication</b> (making findings accessible to non-technical audiences).",eg:"A scatter plot of house size vs price reveals prices plateau above 3000 sq ft — a non-linear pattern that correlation alone understates, prompting a better-suited model choice.",src:"Kotu & Deshpande, Ch. 2"},
 
-  // MODULE 2
-  {m:"M2",q:"What are the main types of data?",a:"Data is classified as <b>numerical</b> (continuous or discrete), <b>categorical</b> (nominal — no order, or ordinal — with order), and <b>unstructured</b> types such as text, images, and time series. Correctly identifying data type drives every subsequent choice from summary statistics to model selection.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M2",q:"Define mean, median, and mode.",a:"<b>Mean</b> is the arithmetic average — sensitive to outliers. <b>Median</b> is the middle value when data is sorted — robust to outliers. <b>Mode</b> is the most frequently occurring value — most useful for categorical data. Together they describe the center of a distribution.",src:"Arora et al., Ch. 2"},
-  {m:"M2",q:"What are the key measures of spread?",a:"<b>Range</b> is max minus min. <b>Variance</b> is the average squared deviation from the mean. <b>Standard deviation</b> is the square root of variance, in the same units as the data. <b>IQR</b> (interquartile range) is Q3 minus Q1 and is robust to outliers. Each quantifies how dispersed values are around the center.",src:"Arora et al., Ch. 3"},
-  {m:"M2",q:"What is Karl Pearson's coefficient of skewness?",a:"It is computed as <b>(Mean − Mode) / Standard Deviation</b>. A positive value indicates a right-skewed distribution; a negative value indicates left skew; zero indicates symmetry. An alternative formula uses <b>3(Mean − Median) / SD</b> when the mode is poorly defined.",src:"Arora et al., Ch. 4"},
-  {m:"M2",q:"What is Bowley's coefficient of skewness?",a:"Bowley's coefficient is <b>(Q3 + Q1 − 2Q2) / (Q3 − Q1)</b>, using the first, second, and third quartiles. It is purely quartile-based, making it <b>more robust to extreme values</b> than Pearson's coefficient. It ranges from −1 to +1.",src:"Arora et al., Ch. 4"},
-  {m:"M2",q:"What does kurtosis measure?",a:"Kurtosis measures the <b>peakedness and tail weight</b> of a distribution relative to a normal distribution. A <b>leptokurtic</b> distribution (excess kurtosis > 0) has a sharper peak and heavier tails. A <b>platykurtic</b> one (excess kurtosis < 0) is flatter with thinner tails. Excess kurtosis = kurtosis − 3.",src:"Arora et al., Ch. 4"},
-  {m:"M2",q:"What is Pearson's correlation coefficient?",a:"Pearson's r measures the <b>linear relationship</b> between two continuous variables, ranging from −1 (perfect negative) to +1 (perfect positive), with 0 meaning no linear association. It is sensitive to outliers and only detects linear — not non-linear — relationships.",src:"Arora et al., Ch. 6"},
-  {m:"M2",q:"State the Central Limit Theorem.",a:"The CLT states that the distribution of the <b>sample mean</b> approaches a normal distribution as sample size n increases, regardless of the underlying population distribution. In practice this holds for n ≥ 30. It justifies using normal-theory statistical tests on large samples from any distribution.",src:"Arora et al., Ch. 8"},
-  {m:"M2",q:"What is a confidence interval?",a:"A confidence interval gives a range of plausible values for a population parameter. A <b>95% CI</b> means that if the experiment were repeated many times, 95% of the constructed intervals would contain the true parameter. It is not a probability statement about this one specific interval.",src:"Arora et al., Ch. 9"},
-  {m:"M2",q:"What is the difference between a Z-test and a t-test?",a:"A <b>Z-test</b> is used when population variance is known or the sample size is large (n > 30). A <b>t-test</b> is used when population variance is unknown and the sample is small; it uses the t-distribution, which has heavier tails to account for additional estimation uncertainty.",src:"Arora et al., Ch. 10"},
-  {m:"M2",q:"Define Type I and Type II errors.",a:"A <b>Type I error</b> (false positive) is rejecting a true null hypothesis; its probability is α (significance level). A <b>Type II error</b> (false negative) is failing to reject a false null hypothesis; its probability is β. Reducing one typically increases the other — a fundamental trade-off in hypothesis testing.",src:"Arora et al., Ch. 10"},
-  {m:"M2",q:"When is ANOVA used and how does it work?",a:"ANOVA tests whether the <b>means of three or more groups</b> are statistically different. It partitions total variance into between-group variance and within-group variance, forming the F-statistic. If F exceeds the critical value, at least one group mean differs significantly from the others.",src:"Arora et al., Ch. 11"},
-  {m:"M2",q:"What is the Poisson distribution?",a:"The Poisson distribution models the <b>number of events in a fixed interval</b> of time or space when events occur independently at a constant average rate λ. The mean and variance are both equal to λ. Examples include website visits per minute or defects per unit of product.",src:"Arora et al., Ch. 7"},
+  {m:"M2",q:"What are the main types of data?",a:"<b>Numerical</b> (continuous or discrete), <b>categorical</b> (nominal — no order, or ordinal — with order), and <b>unstructured</b> types such as text, images, and time series.",eg:"Age = continuous. Number of children = discrete. Blood type = nominal categorical. Education level (high school < bachelor < master) = ordinal. A customer review = unstructured text.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M2",q:"Define mean, median, and mode.",a:"<b>Mean</b> = arithmetic average, sensitive to outliers. <b>Median</b> = middle value when sorted, robust to outliers. <b>Mode</b> = most frequent value, useful for categorical data.",eg:"Employee salaries: 30k, 32k, 35k, 38k, 200k. Mean = 67k (distorted). Median = 35k (representative). If most employees are 'junior' grade, that is the mode.",src:"Arora et al., Ch. 2"},
+  {m:"M2",q:"What are the key measures of spread?",a:"<b>Range</b> = max − min. <b>Variance</b> = average squared deviation from mean. <b>Standard deviation</b> = square root of variance (same units as data). <b>IQR</b> = Q3 − Q1, robust to outliers.",eg:"Exam scores: 40, 55, 60, 65, 95. Range = 55. SD summarises spread around the mean. IQR covers the middle 50% and is unaffected by the extreme scores of 40 or 95.",src:"Arora et al., Ch. 3"},
+  {m:"M2",q:"What is Karl Pearson's coefficient of skewness?",a:"<b>(Mean − Mode) / SD</b>. Positive = right-skewed, negative = left-skewed, zero = symmetric. Alternative: <b>3(Mean − Median) / SD</b> when mode is poorly defined.",eg:"Income distribution: mean = ₹8L, median = ₹5L, SD = ₹4L. Coefficient = 3(8−5)/4 = 2.25 — strongly right-skewed, confirming a small number of high earners pull the mean up.",src:"Arora et al., Ch. 4"},
+  {m:"M2",q:"What is Bowley's coefficient of skewness?",a:"<b>(Q3 + Q1 − 2Q2) / (Q3 − Q1)</b>. Purely quartile-based, more robust to extremes than Pearson's. Ranges from −1 to +1.",eg:"Delivery times: Q1=2, Q2=3, Q3=6 days. Bowley's = (6+2−6)/(6−2) = 0.5 — moderately right-skewed, indicating occasional very long deliveries pull the upper quartile up.",src:"Arora et al., Ch. 4"},
+  {m:"M2",q:"What does kurtosis measure?",a:"The <b>peakedness and tail weight</b> of a distribution. <b>Leptokurtic</b> (excess kurtosis > 0) = sharp peak, heavy tails. <b>Platykurtic</b> (excess kurtosis < 0) = flat, thin tails.",eg:"Daily stock returns are leptokurtic — most days have tiny changes (sharp center peak) but extreme crashes or rallies occur more often than a normal distribution would predict (heavy tails).",src:"Arora et al., Ch. 4"},
+  {m:"M2",q:"What is Pearson's correlation coefficient?",a:"Measures the <b>linear relationship</b> between two continuous variables. Ranges from −1 to +1. Zero = no linear association. Sensitive to outliers, detects only linear relationships.",eg:"Height and weight: r ≈ +0.7, strong positive linear relationship. Hours studied vs exam anxiety may be U-shaped (non-linear) — Pearson's r would report near zero, missing the real relationship entirely.",src:"Arora et al., Ch. 6"},
+  {m:"M2",q:"State the Central Limit Theorem.",a:"The distribution of the <b>sample mean</b> approaches normality as sample size n grows, regardless of the population distribution. Holds for n ≥ 30 in practice.",eg:"Individual dice rolls are uniformly distributed (1–6). But the average of 50 rolls follows an approximately normal distribution — justifying z-tests on averages even when raw data is not normal.",src:"Arora et al., Ch. 8"},
+  {m:"M2",q:"What is a confidence interval?",a:"A range of plausible values for a population parameter. A <b>95% CI</b> means that if the experiment were repeated many times, 95% of constructed intervals would contain the true parameter.",eg:"A 95% CI for mean student height is [165cm, 171cm]. This means the procedure that produced this interval captures the true mean 95% of the time — not that this specific interval has a 95% probability.",src:"Arora et al., Ch. 9"},
+  {m:"M2",q:"What is the difference between a Z-test and a t-test?",a:"<b>Z-test</b> — population variance known or n > 30. <b>t-test</b> — population variance unknown and small sample; t-distribution's heavier tails account for extra estimation uncertainty.",eg:"Testing a new drug with 200 patients: use Z-test. With only 15 patients in a pilot study with unknown variance: use t-test — heavier tails prevent overconfident conclusions from small samples.",src:"Arora et al., Ch. 10"},
+  {m:"M2",q:"Define Type I and Type II errors.",a:"<b>Type I</b> (false positive) — rejecting a true null hypothesis; probability = α. <b>Type II</b> (false negative) — failing to reject a false null; probability = β. Reducing one increases the other.",eg:"Fire alarm: Type I = alarm sounds but no fire (annoying but safe). Type II = fire exists but no alarm (dangerous). In medical testing, Type II errors — missing a real disease — can be life-threatening.",src:"Arora et al., Ch. 10"},
+  {m:"M2",q:"When is ANOVA used and how does it work?",a:"Tests whether <b>means of three or more groups</b> differ significantly. Partitions total variance into between-group and within-group components to form the F-statistic.",eg:"Comparing three teaching methods (lecture, flipped classroom, online) on exam scores. ANOVA tests all three simultaneously — avoiding the inflated Type I error of running multiple pairwise t-tests.",src:"Arora et al., Ch. 11"},
+  {m:"M2",q:"What is the Poisson distribution?",a:"Models the <b>number of events in a fixed interval</b> when events occur independently at constant average rate λ. Mean and variance both equal λ.",eg:"A call centre receives on average 10 calls per hour (λ=10). The Poisson distribution gives the probability of receiving exactly 7, 10, or 15 calls in a given hour — directly useful for staffing decisions.",src:"Arora et al., Ch. 7"},
 
-  // MODULE 3
-  {m:"M3",q:"What is cross validation and why is it used?",a:"Cross validation assesses how well a model <b>generalises to unseen data</b> by splitting data multiple times so every observation eventually appears in a test set. It gives a more reliable performance estimate than a single train/test split and reduces the risk of over-optimistic evaluation.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M3",q:"Explain K-fold cross validation.",a:"The dataset is divided into <b>K equal folds</b>. The model is trained K times — each time a different fold serves as the test set and the remaining K−1 folds train the model. Final performance is the average across all K results. Typical values are K = 5 or K = 10.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M3",q:"What is leave-one-out cross validation (LOOCV)?",a:"LOOCV is K-fold CV where <b>K equals the total number of samples n</b>. Each iteration trains on n−1 samples and tests on 1. It produces an almost unbiased performance estimate but is computationally expensive for large datasets because it requires fitting n separate models.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M3",q:"What is bootstrapping in model evaluation?",a:"Bootstrapping creates multiple training sets by <b>sampling with replacement</b> from the original data. Observations not selected form the out-of-bag test set. It is particularly useful for estimating confidence intervals of model metrics and is the basis of ensemble methods like Random Forest.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M3",q:"What does a histogram convey?",a:"A histogram bins a continuous variable and plots the <b>frequency or density</b> in each bin. It reveals distribution shape — symmetric, skewed, bimodal, or uniform — and gives a visual sense of spread and central tendency. Bin width significantly affects interpretation.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M3",q:"What is a scatter matrix?",a:"A scatter matrix (pair plot) arranges <b>pairwise scatter plots</b> of all numerical variables in a grid, with histograms or KDE plots on the diagonal. It gives a quick overview of all bivariate relationships, correlations, and potential outliers in a dataset simultaneously.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M3",q:"What information does a bubble chart encode?",a:"A bubble chart extends a scatter plot by encoding a <b>third quantitative variable as the size (area)</b> of each point. It conveys three dimensions simultaneously — x-position, y-position, and bubble size. Color can optionally encode a fourth variable.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M3",q:"What are Andrews Curves?",a:"Andrews Curves map each multivariate observation to a unique <b>trigonometric curve</b> using Fourier series coefficients. Similar observations produce similar curves, so clusters in high-dimensional data appear as bundles of overlapping lines. They are a self-learning topic for visualising high-dimensional data.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M3",q:"What does a density chart show, and how does it differ from a histogram?",a:"A density chart estimates the <b>continuous probability density function</b> using kernel density estimation (KDE), producing a smooth curve. Unlike a histogram, it is not sensitive to bin width. It is better suited for overlaying and comparing distributions across multiple groups.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"M3",q:"What is a parallel coordinates chart used for?",a:"Parallel coordinates place each variable on a separate vertical axis and draw a line for each observation connecting its values across all axes. They are used to <b>visualise high-dimensional data</b>, identify clusters, and spot correlations or anomalies across many variables simultaneously.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What is cross validation and why is it used?",a:"Assesses how well a model <b>generalises to unseen data</b> by splitting data multiple times so every observation eventually serves as a test point. More reliable than a single train/test split.",eg:"A model trained on one 80/20 split might get lucky with which 20% lands in the test set. Cross validation averages over multiple splits, removing that luck factor.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M3",q:"Explain K-fold cross validation.",a:"Data divided into <b>K equal folds</b>. The model trains K times — each time a different fold is the test set, remaining K−1 folds train the model. Final performance = average across K runs.",eg:"K=5, 1000 samples: each fold has 200 samples. The model trains on 800 and tests on 200, five times over, each time with a different 200 as the test set. The 5 scores are averaged.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M3",q:"What is leave-one-out cross validation (LOOCV)?",a:"K-fold where <b>K = n</b>. Each iteration trains on n−1 samples, tests on 1. Nearly unbiased but computationally expensive for large datasets.",eg:"With 100 patients, LOOCV trains 100 separate models — each on 99 patients. Useful in medical studies where data is scarce and every sample must contribute to training.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M3",q:"What is bootstrapping in model evaluation?",a:"Creates training sets by <b>sampling with replacement</b>. Out-of-bag observations (~37% not selected) form the test set. Useful for estimating confidence intervals of metrics.",eg:"From 500 records, a bootstrap sample of 500 is drawn with replacement — some appear twice, roughly 37% never appear. Those are the out-of-bag test samples. Repeat 1000 times to estimate metric variance.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M3",q:"What does a histogram convey?",a:"Bins a continuous variable and shows the <b>frequency or density</b> per bin. Reveals shape — symmetric, skewed, bimodal, or uniform — and gives a visual sense of spread and center.",eg:"A histogram of streaming service users' ages shows two peaks — one at 18–25 (students) and another at 35–45 (professionals) — revealing two distinct segments needing different content strategies.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What is a scatter matrix?",a:"Arranges <b>pairwise scatter plots</b> of all numerical variables in a grid, with histograms or KDE on the diagonal. Simultaneous overview of all bivariate relationships.",eg:"The Iris flower scatter matrix of petal and sepal dimensions instantly shows that petal dimensions are highly correlated and clearly separate the three species — visible at a glance.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What information does a bubble chart encode?",a:"Extends a scatter plot by encoding a <b>third variable as the area of each point</b>. Conveys x, y, and size simultaneously. Color can optionally encode a fourth variable.",eg:"GDP per capita (x), life expectancy (y), population as bubble size: China and India appear as large bubbles moving rightward over time — exactly the Gapminder visualisation by Hans Rosling.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What are Andrews Curves?",a:"Maps each observation to a unique <b>trigonometric curve</b> using Fourier series. Similar observations produce similar curves; clusters appear as bundles of overlapping lines.",eg:"On the Iris dataset, Andrews Curves produce three visually distinct bundles — one per species — even though the data has four dimensions. High-dimensional clusters become visible in 2D.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What does a density chart show compared to a histogram?",a:"Estimates the <b>continuous probability density</b> using KDE, producing a smooth curve. Not sensitive to bin width. Better for comparing multiple distributions.",eg:"Comparing exam scores of two batches: two overlapping KDE curves clearly show where one batch outperforms the other — much cleaner than two overlapping histograms where bin edges create visual noise.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"M3",q:"What is a parallel coordinates chart used for?",a:"Places each variable on a separate vertical axis and draws a line per observation. Used to <b>visualise high-dimensional data</b> and spot clusters or anomalies across many variables.",eg:"In a manufacturing dataset with 10 sensor readings, parallel coordinates reveal that all defective products share high sensor 3 and low sensor 7 values — a pattern invisible in individual scatter plots.",src:"Kotu & Deshpande, Ch. 2"},
 
-  // MODULE 4
-  {m:"M4",q:"What is an outlier?",a:"An outlier is an observation that <b>deviates significantly from the rest of the data</b>. It may result from measurement error, data entry mistakes, or genuinely rare events. Outliers can distort statistical measures such as the mean and variance, and degrade model performance if not handled appropriately.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"What are the common causes of outliers?",a:"Common causes include <b>measurement errors</b> (faulty instruments), <b>data entry mistakes</b> (typos), <b>experimental errors</b> (incorrect procedures), and <b>genuine natural variation</b> — rare but real extreme events. Identifying the cause is critical before deciding whether to remove or retain an outlier.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"How does the Z-score method detect outliers?",a:"Each value is standardised as <b>(x − mean) / SD</b>. Points with |Z| > 3 are flagged as outliers, meaning they lie more than three standard deviations from the mean. The method assumes data is approximately normally distributed and is sensitive to the very outliers it is trying to detect.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"How does the IQR method identify outliers?",a:"IQR = Q3 − Q1. A point is flagged if it falls <b>below Q1 − 1.5 × IQR</b> or <b>above Q3 + 1.5 × IQR</b> (Tukey's fences). This method is non-parametric, makes no distributional assumption, and is robust because it is based on quartiles rather than the mean.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"Explain distance-based outlier detection.",a:"A point is declared an outlier if <b>fewer than a minimum number of neighbours</b> exist within a specified radius. Legitimate data points have many close neighbours; outliers are isolated. The DB(p,d)-outlier definition by Knorr and Ng formalises this: a point is an outlier if at least fraction p of all points lie more than distance d away.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"What is Local Outlier Factor (LOF)?",a:"LOF is a <b>density-based</b> method. It computes the ratio of the average local density of a point's neighbours to the point's own local density. An LOF score significantly greater than 1 means the point is in a much sparser region than its neighbours, indicating it is a local outlier.",src:"Kotu & Deshpande, Ch. 5"},
-  {m:"M4",q:"What is SMOTE and what problem does it solve?",a:"SMOTE (Synthetic Minority Over-sampling Technique) solves <b>class imbalance</b>. It creates new synthetic minority class samples by <b>interpolating</b> between an existing minority sample and one of its K nearest minority neighbours — rather than simply duplicating existing samples.",src:"Madhavan, Ch. 6"},
-  {m:"M4",q:"Why is SMOTE preferred over simple duplication for class imbalance?",a:"Simple duplication replicates existing points exactly, which can cause the model to <b>overfit</b> those specific samples without learning the broader minority distribution. SMOTE generates new points in the feature space between existing minority samples, providing more diverse and informative training signal.",src:"Madhavan, Ch. 6"},
-  {m:"M4",q:"What is the difference between global and local outlier detection?",a:"<b>Global</b> outlier detection compares each point to the entire dataset (Z-score, IQR). <b>Local</b> outlier detection compares a point only to its immediate neighbourhood, making it effective when the data contains clusters of varying densities. A point may appear normal globally but be anomalous locally — LOF is a local method.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"What is an outlier?",a:"An observation that <b>deviates significantly from the rest of the data</b>. May result from measurement error, data entry mistakes, or genuinely rare events. Can distort statistics and degrade models.",eg:"Student heights: 165, 170, 168, 300cm. The 300cm entry is clearly an outlier — likely a data entry error (perhaps 3.00m entered instead of 1.70m).",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"What are the common causes of outliers?",a:"<b>Measurement errors</b>, <b>data entry mistakes</b>, <b>experimental errors</b>, and <b>genuine natural variation</b> — rare but real extremes. Identifying the cause determines whether to remove or keep the outlier.",eg:"Blood glucose of 1200 mg/dL is likely an entry error and should be corrected. Usain Bolt's 9.58s sprint is a genuine outlier — extreme but real, and removing it would be scientifically wrong.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"How does the Z-score method detect outliers?",a:"Standardises each value as <b>(x − mean) / SD</b>. Points with |Z| > 3 are flagged. Assumes approximately normal distribution.",eg:"Monthly electricity bills: mean = ₹1200, SD = ₹200. A bill of ₹2800 gives Z = (2800−1200)/200 = 8 — far beyond 3, strongly flagged as an outlier worth investigating.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"How does the IQR method identify outliers?",a:"IQR = Q3 − Q1. Points below <b>Q1 − 1.5×IQR</b> or above <b>Q3 + 1.5×IQR</b> are flagged. Non-parametric — no distributional assumption required.",eg:"Delivery times: Q1=2, Q3=5, IQR=3. Upper fence = 5 + 4.5 = 9.5 days. Any delivery over 9.5 days is flagged as an outlier — useful even if delivery times are not normally distributed.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"Explain distance-based outlier detection.",a:"A point is an outlier if <b>fewer than a minimum number of neighbours</b> exist within a specified radius. Legitimate points have many close neighbours; outliers are isolated.",eg:"In a 2D plot of customer age vs monthly spend, most points cluster together. A customer aged 95 with ₹50,000 monthly spend has no close neighbours — flagged as a distance-based outlier.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"What is Local Outlier Factor (LOF)?",a:"A <b>density-based</b> method. Computes the ratio of average neighbour density to a point's own local density. LOF >> 1 means the point is in a much sparser region than its neighbours.",eg:"A single restaurant in a remote suburb: its own density is low, but its nearest neighbours are in a dense city area with high density. The ratio >> 1, giving a high LOF score and flagging it as a local outlier.",src:"Kotu & Deshpande, Ch. 5"},
+  {m:"M4",q:"What is SMOTE and what problem does it solve?",a:"SMOTE (Synthetic Minority Over-sampling Technique) solves <b>class imbalance</b> by creating synthetic minority class samples through <b>interpolation</b> between existing minority samples and their K nearest minority neighbours.",eg:"Fraud detection: 10,000 normal vs 100 fraud transactions. SMOTE generates synthetic fraud examples by interpolating between real fraud cases — giving the model enough examples to learn meaningful fraud patterns.",src:"Madhavan, Ch. 6"},
+  {m:"M4",q:"Why is SMOTE preferred over simple duplication?",a:"Duplication copies points exactly, risking <b>overfitting</b> to those specific samples. SMOTE generates points between existing minority samples, providing more diverse training signal.",eg:"If the only fraud examples are transactions of exactly ₹9,999, the model misses ₹9,850 fraud. SMOTE creates interpolated examples across the fraud region, teaching the broader pattern not just exact values.",src:"Madhavan, Ch. 6"},
+  {m:"M4",q:"What is the difference between global and local outlier detection?",a:"<b>Global</b> methods compare to the entire dataset (Z-score, IQR). <b>Local</b> methods compare to the immediate neighbourhood — effective when data has clusters of varying density.",eg:"A rural data point may look normal globally (not far from the overall mean) but is anomalous within its sparse local neighbourhood. LOF detects it; Z-score does not.",src:"Kotu & Deshpande, Ch. 5"},
 
-  // MODULE 5
-  {m:"M5",q:"What is time series decomposition?",a:"Decomposition separates a time series into three components: <b>trend</b> (long-term direction), <b>seasonality</b> (recurring periodic patterns at fixed intervals), and <b>residual</b> (irregular noise). It helps understand the structure of a series and select appropriate forecasting methods.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is moving average smoothing?",a:"Moving average smoothing replaces each value with the <b>mean of a sliding window</b> of surrounding observations. It reduces noise and highlights the underlying trend. A wider window produces smoother output but loses fine-grained variation. It is the simplest smoothing technique.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is the ARIMA model and what do its parameters mean?",a:"ARIMA stands for <b>AutoRegressive Integrated Moving Average</b>. The parameter <b>p</b> is the autoregressive order (dependence on past values), <b>d</b> is the degree of differencing required to make the series stationary, and <b>q</b> is the moving average order (dependence on past forecast errors).",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is MAE and how is it interpreted?",a:"<b>Mean Absolute Error</b> = (1/n) Σ |yᵢ − ŷᵢ|. It measures the average magnitude of forecast errors in the same units as the target variable. It is easy to interpret and robust to outliers because errors are not squared.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is RMSE and how does it differ from MAE?",a:"<b>Root Mean Square Error</b> = √[(1/n) Σ (yᵢ − ŷᵢ)²]. Because errors are squared, RMSE penalises large errors more heavily than MAE. It is in the same units as the target variable but more sensitive to outlier predictions. RMSE ≥ MAE always.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is MAPE?",a:"<b>Mean Absolute Percentage Error</b> = (100/n) Σ |(yᵢ − ŷᵢ) / yᵢ|. It expresses error as a percentage, making it scale-independent and comparable across different time series. Its limitation is that it is undefined or misleadingly large when actual values are zero or near zero.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is MASE and why is it useful?",a:"<b>Mean Absolute Scaled Error</b> scales MAE by the MAE of a naïve one-step forecast on the training data. A MASE < 1 means the model outperforms the naïve baseline. It is scale-independent and avoids the division-by-zero problem of MAPE, making it suitable for comparing forecasts across series.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What is stationarity and why does it matter for ARIMA?",a:"A stationary series has <b>constant mean, variance, and autocorrelation</b> over time. ARIMA assumes stationarity. Non-stationary series with trends or changing variance must be differenced (the I in ARIMA) or transformed (e.g., log) before the model can be reliably applied. The ADF test checks for stationarity.",src:"Kotu & Deshpande, Ch. 9"},
-  {m:"M5",q:"What evaluation metrics are used for classification models?",a:"Key metrics: <b>Accuracy</b> — fraction correctly classified. <b>Precision</b> — of predicted positives, how many are truly positive. <b>Recall</b> — of actual positives, how many are found. <b>F1-score</b> — harmonic mean of precision and recall, used when classes are imbalanced. <b>AUC-ROC</b> — overall discriminative ability of the model.",src:"Kotu & Deshpande, Ch. 3"},
-  {m:"M5",q:"What evaluation metrics are used for clustering?",a:"<b>Silhouette Score</b> — how similar a point is to its own cluster vs others; ranges from −1 to +1, higher is better. <b>Davies-Bouldin Index</b> — ratio of within-cluster to between-cluster distances; lower is better. <b>Inertia/WCSS</b> — within-cluster sum of squares, used in the elbow method to choose K.",src:"Kotu & Deshpande, Ch. 6"},
+  {m:"M5",q:"What is time series decomposition?",a:"Separates a series into <b>trend</b> (long-term direction), <b>seasonality</b> (recurring periodic patterns), and <b>residual</b> (irregular noise). Helps understand structure and choose forecasting methods.",eg:"Monthly ice cream sales show an upward trend over years, a seasonal spike every summer, and small random fluctuations. Decomposing them reveals whether to model trend, season, or both.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is moving average smoothing?",a:"Replaces each value with the <b>mean of a sliding window</b> of surrounding observations. Reduces noise, highlights trend. Wider window = smoother but loses fine detail.",eg:"Daily stock prices are noisy. A 20-day moving average smooths out daily fluctuations, making the underlying upward or downward trend clearly visible to traders.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is the ARIMA model and what do its parameters mean?",a:"<b>AutoRegressive Integrated Moving Average</b>. <b>p</b> = AR order (dependence on past values). <b>d</b> = differencing degree (to achieve stationarity). <b>q</b> = MA order (dependence on past errors).",eg:"ARIMA(1,1,1) on monthly sales: p=1 means this month depends on last month's sales. d=1 differences once to remove trend. q=1 accounts for last month's forecast error. Together they capture trend and autocorrelation.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is MAE and how is it interpreted?",a:"<b>Mean Absolute Error</b> = (1/n) Σ |yᵢ − ŷᵢ|. Average magnitude of errors in the same units as the target. Robust to outliers since errors are not squared.",eg:"A model predicting electricity consumption with MAE = 50 kWh means each prediction is off by 50 kWh on average — directly interpretable in the same unit as the target.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is RMSE and how does it differ from MAE?",a:"<b>Root Mean Square Error</b> = √[(1/n) Σ (yᵢ − ŷᵢ)²]. Penalises large errors more heavily. RMSE ≥ MAE always — a larger gap signals more big individual errors.",eg:"Two temperature models both have MAE = 10°C. Model A has RMSE = 11°C (consistent errors). Model B has RMSE = 25°C (a few wildly wrong predictions). RMSE exposes Model B's dangerous large errors that MAE obscures.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is MAPE?",a:"<b>Mean Absolute Percentage Error</b> = (100/n) Σ |(yᵢ − ŷᵢ)/yᵢ|. Scale-independent percentage error. Undefined when actual values are zero.",eg:"MAPE of 8% for demand forecasting means predictions are off by 8% on average — useful for comparing accuracy across products selling 100 vs 10,000 units because it is scale-independent.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is MASE and why is it useful?",a:"<b>Mean Absolute Scaled Error</b> scales MAE by the MAE of a naïve one-step forecast. MASE < 1 = model beats the naïve baseline. Scale-independent, avoids MAPE's zero-division problem.",eg:"MASE = 0.6 means errors are 40% smaller than simply predicting 'next week = this week'. MASE = 1.2 means the model is actually worse than that naïve approach — a clear signal to rethink the model.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What is stationarity and why does it matter for ARIMA?",a:"A stationary series has <b>constant mean, variance, and autocorrelation</b> over time. ARIMA requires stationarity. Non-stationary series must be differenced or transformed first.",eg:"Monthly revenue of a growing company is non-stationary — the mean keeps rising. Taking the first difference (this month minus last month) typically produces a stationary series of changes that ARIMA can model.",src:"Kotu & Deshpande, Ch. 9"},
+  {m:"M5",q:"What evaluation metrics are used for classification models?",a:"<b>Accuracy</b> — fraction correct. <b>Precision</b> — of predicted positives, how many are truly positive. <b>Recall</b> — of actual positives, how many are found. <b>F1</b> — harmonic mean of precision and recall. <b>AUC-ROC</b> — overall discriminative ability.",eg:"Cancer diagnosis: a model predicting 'healthy' always gets 95% accuracy (if 95% are healthy) but catches zero cancers. Recall is what matters here — missing a cancer (false negative) is far worse than a false alarm.",src:"Kotu & Deshpande, Ch. 3"},
+  {m:"M5",q:"What evaluation metrics are used for clustering?",a:"<b>Silhouette Score</b> — similarity to own cluster vs others, higher is better. <b>Davies-Bouldin Index</b> — within to between cluster distance ratio, lower is better. <b>Inertia/WCSS</b> — used in the elbow method.",eg:"K-Means on customer data: plot inertia for K=2 to 10. The curve bends at K=4 (the elbow), suggesting 4 segments. Silhouette Score at K=4 = 0.55 confirms this is a good choice.",src:"Kotu & Deshpande, Ch. 6"},
 
-  // MODULE 6
-  {m:"M6",q:"How is data science applied to house price prediction?",a:"It is framed as a <b>regression problem</b>. Features like area, location, number of rooms, and property age are used to train models such as linear regression or gradient boosting. Key steps include feature engineering (e.g., distance to amenities), handling skewed price distributions, and evaluating with RMSE and MAE.",src:"Kotu & Deshpande, Ch. 11"},
-  {m:"M6",q:"How is data science used for fraud detection?",a:"Fraud detection is a <b>binary classification</b> problem with severe class imbalance — fraud is rare. Techniques include SMOTE for resampling, anomaly detection (Isolation Forest, LOF), and ensemble classifiers. Models must be evaluated using precision-recall and F1 rather than accuracy, which is misleading under imbalance.",src:"Kotu & Deshpande, Ch. 11"},
-  {m:"M6",q:"Explain customer segmentation as a data science application.",a:"Customer segmentation uses <b>unsupervised clustering</b> — typically K-Means or hierarchical clustering — to group customers by purchasing behaviour, demographics, or engagement patterns. Each segment receives tailored marketing strategies. The business value lies in moving from one-size-fits-all to personalised approaches.",src:"Kotu & Deshpande, Ch. 11"},
-  {m:"M6",q:"How is time series forecasting applied to weather prediction?",a:"Historical meteorological data (temperature, humidity, pressure) is used to train time series models such as ARIMA or LSTM networks. Decomposition isolates seasonal and trend components. Model accuracy is measured with RMSE or MAE at various forecast horizons. Feature engineering with lag variables is commonly used.",src:"Kotu & Deshpande, Ch. 9 & 11"},
-  {m:"M6",q:"What is a recommendation engine and what are its two main approaches?",a:"A recommendation engine suggests items based on user preferences. <b>Collaborative filtering</b> recommends what similar users liked — it requires no item content information. <b>Content-based filtering</b> recommends items similar to what a user previously engaged with. <b>Hybrid systems</b> combine both for better coverage and accuracy.",src:"Kotu & Deshpande, Ch. 11"},
+  {m:"M6",q:"How is data science applied to house price prediction?",a:"A <b>regression problem</b>. Features like area, location, rooms, and age predict price using linear regression or gradient boosting. Steps: feature engineering, handling skewed distributions, evaluating with RMSE and MAE.",eg:"A Mumbai flat price model uses area, floor number, distance to nearest metro, and building age. Adding 'average price per sq ft of recently sold nearby flats' as a locality benchmark significantly improves predictions.",src:"Kotu & Deshpande, Ch. 11"},
+  {m:"M6",q:"How is data science used for fraud detection?",a:"A <b>binary classification</b> problem with severe class imbalance. Uses SMOTE for resampling, anomaly detection, and ensemble classifiers. Evaluated on precision-recall, not accuracy.",eg:"A bank has 1 million transactions and only 500 fraud cases (0.05%). A model predicting 'not fraud' always gets 99.95% accuracy but catches zero fraud. F1 and precision-recall curves give the true picture.",src:"Kotu & Deshpande, Ch. 11"},
+  {m:"M6",q:"Explain customer segmentation as a data science application.",a:"Uses <b>unsupervised clustering</b> (K-Means or hierarchical) to group customers by behaviour, demographics, or engagement. Each segment receives a tailored strategy.",eg:"An online retailer identifies: 'high-value loyalists' (frequent, high spend), 'bargain hunters' (buy only on sale), and 'dormant users' (no purchase in 90 days). Each group gets a different campaign — retention, discount, or re-engagement.",src:"Kotu & Deshpande, Ch. 11"},
+  {m:"M6",q:"How is time series forecasting applied to weather prediction?",a:"Historical meteorological data trains models like ARIMA or LSTM. Decomposition isolates seasonal and trend components. Accuracy measured with RMSE or MAE at various forecast horizons.",eg:"Temperature forecasting uses 30 days of temperature, humidity, and wind speed. ARIMA captures the seasonal pattern (hotter in April). An LSTM additionally captures non-linear interactions between variables.",src:"Kotu & Deshpande, Ch. 9 & 11"},
+  {m:"M6",q:"What is a recommendation engine and what are its two main approaches?",a:"Suggests items based on user preferences. <b>Collaborative filtering</b> — recommends what similar users liked. <b>Content-based filtering</b> — recommends items similar to what the user previously engaged with. Hybrid systems combine both.",eg:"Netflix: collaborative filtering recommends Inception because similar users watched it. Content-based filtering recommends it because you rated another Nolan film highly. Netflix uses both approaches together.",src:"Kotu & Deshpande, Ch. 11"},
 
-  // LAB
-  {m:"LAB",q:"What steps are involved in exploring descriptive statistics on a dataset?",a:"First identify data types. For numerical columns compute <b>mean, median, mode, standard deviation, min, max, and IQR</b>. For categorical columns compute <b>frequency counts and proportions</b>. Check skewness and kurtosis. In Python, start with pandas .describe() and supplement with custom code for skewness and kurtosis.",src:"Madhavan, Practical Ch."},
-  {m:"LAB",q:"What is data imputation and when is it used?",a:"Data imputation fills in <b>missing values</b> rather than discarding incomplete records. Strategies include <b>mean/median imputation</b> for numerical data, <b>mode imputation</b> for categorical data, and advanced methods like <b>KNN imputation</b> or <b>multiple imputation</b>. The choice depends on the missing data mechanism — MCAR, MAR, or MNAR.",src:"Madhavan, Ch. 3"},
-  {m:"LAB",q:"What are the key data cleaning techniques?",a:"Key steps are: removing <b>duplicates</b>, handling <b>missing values</b> (drop or impute), fixing <b>data type mismatches</b>, standardising <b>inconsistent categories</b> (e.g., 'Male'/'male'/'M'), detecting and treating <b>outliers</b>, and normalising or scaling numerical features when required by the chosen algorithm.",src:"Madhavan, Ch. 3"},
-  {m:"LAB",q:"How do you visualise a single numerical variable?",a:"Use a <b>histogram</b> to see distribution shape, a <b>box plot</b> to identify quartiles and outliers, and a <b>KDE plot</b> for a smooth density estimate. In Python, matplotlib and seaborn provide all three. Always report the key descriptive statistics — mean, median, SD — alongside the plot.",src:"Madhavan, Ch. 4"},
-  {m:"LAB",q:"How do you visualise the relationship between two numerical variables?",a:"Use a <b>scatter plot</b> to visually assess the relationship and compute <b>Pearson's r</b> to quantify it. For multiple variables, use a <b>scatter matrix</b> (seaborn pairplot). Add a regression line to indicate directionality. Look for non-linear patterns that Pearson's r alone would miss.",src:"Kotu & Deshpande, Ch. 2"},
-  {m:"LAB",q:"How do you implement and interpret performance evaluation for a supervised model?",a:"Split data into train and test sets, or use cross validation. For <b>classification</b> report accuracy, precision, recall, F1, and AUC-ROC using sklearn.metrics. For <b>regression</b> report MAE, RMSE, and R². Always evaluate on the test set — training set metrics alone indicate overfitting risk and do not reflect real-world performance.",src:"Madhavan, Ch. 5"},
-  {m:"LAB",q:"How do you evaluate an unsupervised clustering model?",a:"Without ground-truth labels, use: <b>Silhouette Score</b> (closer to 1 is better), <b>Davies-Bouldin Index</b> (lower is better), and the <b>elbow method</b> (plot inertia vs K to find the point of diminishing returns). Visualise clusters with scatter plots or t-SNE projections for high-dimensional data.",src:"Kotu & Deshpande, Ch. 6"},
-  {m:"LAB",q:"How do you implement SMOTE in Python?",a:"Use the <b>imbalanced-learn</b> library: from imblearn.over_sampling import SMOTE. Instantiate SMOTE with a chosen k_neighbors value, then call fit_resample(X_train, y_train) to generate synthetic minority samples. Critically, apply SMOTE <b>only on the training set</b> — never on validation or test data — to avoid data leakage.",src:"Madhavan, Ch. 6"},
-  {m:"LAB",q:"How do you implement distance-based outlier detection in Python?",a:"Use sklearn's <b>NearestNeighbors</b> to compute the K-th nearest neighbour distance for each point — high distances flag outliers. Alternatively, use sklearn's <b>LocalOutlierFactor</b> for density-based LOF scores, or <b>IsolationForest</b> for a tree-based approach. Always scale features before distance computations.",src:"Kotu & Deshpande, Ch. 5 / Madhavan"},
-  {m:"LAB",q:"What is the step-by-step workflow for LOF-based outlier detection?",a:"Step 1: Compute the <b>reachability distance</b> from each point to its K nearest neighbours. Step 2: Compute <b>local reachability density (LRD)</b> as the inverse of the average reachability distance. Step 3: Compute the <b>LOF score</b> as the ratio of a point's average neighbour LRD to its own LRD. Points with LOF >> 1 are outliers.",src:"Kotu & Deshpande, Ch. 5"}
+  {m:"LAB",q:"What steps are involved in exploring descriptive statistics on a dataset?",a:"Identify data types. Numerical: compute <b>mean, median, mode, SD, min, max, IQR, skewness, kurtosis</b>. Categorical: <b>frequency counts and proportions</b>. Start with pandas .describe().",eg:"On the Titanic dataset: .describe() gives survival rate and age statistics. Then check skewness of fare (highly right-skewed). Frequency count of Pclass shows class 3 had the most passengers.",src:"Madhavan, Practical Ch."},
+  {m:"LAB",q:"What is data imputation and when is it used?",a:"Fills <b>missing values</b> rather than dropping rows. Strategies: <b>mean/median</b> for numerical, <b>mode</b> for categorical, <b>KNN imputation</b> for more accuracy. Choice depends on the missing data mechanism (MCAR, MAR, MNAR).",eg:"Titanic dataset: Age has 20% missing. Dropping those rows loses too much data. Mean imputation fills with the average — quick but reduces variance. KNN imputation uses similar passengers' ages — more realistic.",src:"Madhavan, Ch. 3"},
+  {m:"LAB",q:"What are the key data cleaning techniques?",a:"Remove <b>duplicates</b>, handle <b>missing values</b>, fix <b>data type mismatches</b>, standardise <b>inconsistent categories</b>, detect and treat <b>outliers</b>, scale features when required by the algorithm.",eg:"A customer dataset: duplicate rows from a system error, 'Gender' stored as 'F' and 'Female', Age as a string, salary of 9999999 as a placeholder error. Each issue needs a different fix before modeling.",src:"Madhavan, Ch. 3"},
+  {m:"LAB",q:"How do you visualise a single numerical variable?",a:"Use a <b>histogram</b> (distribution shape), a <b>box plot</b> (quartiles and outliers), and a <b>KDE plot</b> (smooth density). Report descriptive statistics alongside every plot.",eg:"Exam scores: histogram reveals left-skewed distribution (most students scored high). Box plot shows two outliers below 30. KDE curve confirms the distribution peaks around 75–80 marks.",src:"Madhavan, Ch. 4"},
+  {m:"LAB",q:"How do you visualise the relationship between two numerical variables?",a:"Use a <b>scatter plot</b> with <b>Pearson's r</b> to quantify the relationship. For multiple variables, use a <b>scatter matrix</b>. Look for non-linear patterns that r alone misses.",eg:"Hours studied vs exam score: positive trend up to 6 hours, then a plateau. Pearson's r = 0.65 captures the overall trend but misses the plateau — suggesting polynomial regression rather than linear.",src:"Kotu & Deshpande, Ch. 2"},
+  {m:"LAB",q:"How do you implement and interpret performance evaluation for a supervised model?",a:"Split into train and test sets or use cross validation. <b>Classification</b>: accuracy, precision, recall, F1, AUC-ROC. <b>Regression</b>: MAE, RMSE, R². Always evaluate on the test set.",eg:"A decision tree predicting loan default: training accuracy = 98%, test accuracy = 71% — clear overfitting. Pruning the tree and using CV to tune max_depth brings test accuracy up to 85%.",src:"Madhavan, Ch. 5"},
+  {m:"LAB",q:"How do you evaluate an unsupervised clustering model?",a:"Use <b>Silhouette Score</b> (higher is better), <b>Davies-Bouldin Index</b> (lower is better), and the <b>elbow method</b>. Visualise with scatter plots or t-SNE.",eg:"K-Means on mall customer data: elbow method suggests K=5. Silhouette Score at K=5 is 0.55. t-SNE projection shows 5 visually distinct clusters — confirming 5 segments is a good choice.",src:"Kotu & Deshpande, Ch. 6"},
+  {m:"LAB",q:"How do you implement SMOTE in Python?",a:"from imblearn.over_sampling import SMOTE. Call fit_resample(X_train, y_train). Apply <b>only on training data</b> — never on validation or test sets to avoid data leakage.",eg:"Credit card data: 9,900 normal, 100 fraud. After SMOTE (k_neighbors=5), training becomes 9,900 vs 9,900. The model now learns fraud boundaries properly. The test set stays at its original imbalanced ratio — untouched.",src:"Madhavan, Ch. 6"},
+  {m:"LAB",q:"How do you implement distance-based outlier detection in Python?",a:"Use sklearn's <b>NearestNeighbors</b> (K-th neighbour distance flags outliers), <b>LocalOutlierFactor</b> for density-based LOF, or <b>IsolationForest</b> for tree-based detection. Always scale features first.",eg:"Network intrusion dataset: StandardScaler normalises packet size and duration. LocalOutlierFactor(n_neighbors=20) flags connections with LOF > 1.5 as anomalies — matching known DDoS attack signatures in the labeled data.",src:"Kotu & Deshpande, Ch. 5 / Madhavan"},
+  {m:"LAB",q:"What is the step-by-step workflow for LOF-based outlier detection?",a:"Step 1: Compute <b>reachability distance</b> to K nearest neighbours. Step 2: Compute <b>LRD</b> = inverse of average reachability distance. Step 3: <b>LOF score</b> = average neighbour LRD / own LRD. LOF >> 1 = outlier.",eg:"A point in a sparse region has low LRD. Its neighbours in a dense area have high LRD. The ratio (their LRD / its LRD) >> 1 — resulting in a high LOF score and correctly flagging it as an outlier.","src":"Kotu & Deshpande, Ch. 5"}
 ];
 
 let openedSet = new Set();
@@ -485,20 +209,15 @@ function updateProgress() {
 function buildNav() {
   const nav = document.getElementById('mod-nav');
   const all = document.createElement('button');
-  all.className = 'mnav active';
-  all.textContent = 'All modules';
-  all.dataset.mod = 'all';
+  all.className = 'mnav active'; all.textContent = 'All modules'; all.dataset.mod = 'all';
   nav.appendChild(all);
   MODULES.forEach(m => {
     const b = document.createElement('button');
-    b.className = 'mnav';
-    b.textContent = m.label;
-    b.dataset.mod = m.id;
+    b.className = 'mnav'; b.textContent = m.label; b.dataset.mod = m.id;
     nav.appendChild(b);
   });
   nav.addEventListener('click', e => {
-    const btn = e.target.closest('.mnav');
-    if (!btn) return;
+    const btn = e.target.closest('.mnav'); if (!btn) return;
     nav.querySelectorAll('.mnav').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const mod = btn.dataset.mod;
@@ -510,56 +229,35 @@ function buildNav() {
 
 function buildContent() {
   const main = document.getElementById('main-content');
-  let globalIdx = 0;
   MODULES.forEach(mod => {
     const qs = QS.filter(q => q.m === mod.id);
     if (!qs.length) return;
     const sec = document.createElement('section');
-    sec.className = 'module-section';
-    sec.dataset.mod = mod.id;
-    sec.id = 'sec-' + mod.id;
-    const hdr = document.createElement('div');
-    hdr.className = 'mod-header';
+    sec.className = 'module-section'; sec.dataset.mod = mod.id;
+    const hdr = document.createElement('div'); hdr.className = 'mod-header';
     hdr.innerHTML = `<span class="mod-badge">${mod.label}</span><span class="mod-title-text">${mod.title}</span>${mod.hours ? `<span class="mod-hours">${mod.hours}</span>` : ''}`;
     sec.appendChild(hdr);
     qs.forEach(q => {
       const idx = QS.indexOf(q);
-      const card = document.createElement('div');
-      card.className = 'q-card';
-      const trigger = document.createElement('button');
-      trigger.className = 'q-trigger';
+      const card = document.createElement('div'); card.className = 'q-card';
+      const trigger = document.createElement('button'); trigger.className = 'q-trigger';
       trigger.setAttribute('aria-expanded', 'false');
-      trigger.innerHTML = `
-        <span class="q-num">Q${idx + 1}</span>
-        <span class="q-text">${q.q}</span>
-        <svg class="q-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>`;
-      const panel = document.createElement('div');
-      panel.className = 'a-panel';
-      panel.innerHTML = `
-        <div class="a-label">Viva answer</div>
-        <div class="a-body">${q.a}</div>
-        ${q.src ? `<div class="a-source">${q.src}</div>` : ''}`;
+      trigger.innerHTML = `<span class="q-num">Q${idx + 1}</span><span class="q-text">${q.q}</span><svg class="q-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      const panel = document.createElement('div'); panel.className = 'a-panel';
+      panel.innerHTML = `<div class="a-label">Viva answer</div><div class="a-body">${q.a}</div><div class="eg-box"><div class="eg-label">Example</div><div class="eg-text">${q.eg}</div></div>${q.src ? `<div class="a-source">Source: ${q.src}</div>` : ''}`;
       trigger.addEventListener('click', () => {
         const isOpen = card.classList.toggle('open');
         trigger.setAttribute('aria-expanded', isOpen);
-        if (isOpen) openedSet.add(idx);
-        else openedSet.delete(idx);
+        if (isOpen) openedSet.add(idx); else openedSet.delete(idx);
         updateProgress();
       });
-      card.appendChild(trigger);
-      card.appendChild(panel);
-      sec.appendChild(card);
-      globalIdx++;
+      card.appendChild(trigger); card.appendChild(panel); sec.appendChild(card);
     });
     main.appendChild(sec);
   });
 }
 
-buildNav();
-buildContent();
-updateProgress();
+buildNav(); buildContent(); updateProgress();
 </script>
 </body>
 </html>
